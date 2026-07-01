@@ -34,4 +34,6 @@ class TrackAnalysis(Base):
     speechiness: Mapped[float | None] = mapped_column(nullable=True)
     liveness: Mapped[float | None] = mapped_column(nullable=True)
 
-    track = relationship("Track", back_populates="analysis")
+    track: Mapped["Track"] = relationship(
+        back_populates="analysis",
+    )

@@ -1,5 +1,7 @@
 from sqlalchemy import or_, select
 
+from app.models.track import Track
+from app.models.track_analysis import TrackAnalysis
 from app.models.playlist_track import PlaylistTrack
 from app.models.track import Track
 
@@ -39,3 +41,10 @@ def search_tracks(session, query: str) -> list[Track]:
             )
         )
     ).all()
+
+def get_track_analysis(session, track_id: int) -> TrackAnalysis | None:
+    return session.scalar(
+        select(TrackAnalysis).where(
+            TrackAnalysis.track_id == track_id
+        )
+    )    

@@ -57,3 +57,8 @@ class Track(Base):
         String(10),
         nullable=True,
     )
+
+    analysis: Mapped["TrackAnalysis"] = relationship(
+        back_populates="track",
+        uselist=False,
+    )

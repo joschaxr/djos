@@ -1,9 +1,11 @@
 from fastapi import APIRouter
 
+from app.schemas.track_analysis import TrackAnalysisResponse
 from app.schemas.playlist import PlaylistResponse
 from app.schemas.track import TrackResponse
 from app.db.session import SessionLocal
 from app.services.playlist_service import (
+    get_analysis_for_track,
     get_playlist,
     get_track,
     list_playlist_tracks,
@@ -70,3 +72,10 @@ def get_track_by_id(track_id: int):
 
         return track
 
+@router.get(
+    "/tracks/{track_id}/analysis",
+    response_model=TrackAnalysisResponse | None,
+)
+def get_track_analysis_by_id(track_id: int):
+    with SessionLocal() as session:
+        return get_analysis_for_track(session, track_id)

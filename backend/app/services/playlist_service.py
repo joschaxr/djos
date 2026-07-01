@@ -4,6 +4,7 @@ from app.repositories.playlist_repository import (
 )
 from app.repositories.track_repository import (
     get_all_tracks,
+    get_track_analysis,
     get_track_by_id,
     get_tracks_by_playlist_id,
     search_tracks,
@@ -30,3 +31,6 @@ def get_track(session, track_id: int):
 
 def search_tracks_by_query(session, query: str):
     return search_tracks(session, query)    
+
+def get_analysis_for_track(session, track_id: int):
+    return get_track_analysis(session, track_id)  
