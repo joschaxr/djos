@@ -5,8 +5,11 @@ from app.schemas.track import TrackResponse
 from app.db.session import SessionLocal
 from app.services.playlist_service import (
     get_playlist,
+    get_track,
     list_playlist_tracks,
     list_playlists,
+    list_tracks,
+    search_tracks_by_query,
 )
 router = APIRouter()
 
@@ -46,3 +49,24 @@ def get_tracks_for_playlist(playlist_id: int):
         tracks = list_playlist_tracks(session, playlist_id)
 
         return tracks
+
+@router.get("/tracks", response_model=list[TrackResponse])
+def get_tracks():
+    with SessionLocal() as session:
+        return list_tracks(session)
+
+@router.get("/tracks/search", response_model=list[TrackResponse])
+def search_tracks(q: str):
+    with SessionLocal() as session:
+        return search_tracks_by_query(session, q)   
+
+@router.get("/tracks/{track_id}", response_model=TrackResponse)
+def get_track_by_id(track_id: int):
+    with SessionLocal() as session:
+        track = get_track(session, track_id)
+
+        if track is None:
+            return {"error": "Track not found"}
+
+        return track
+
