@@ -19,3 +19,22 @@ class Track(Base):
     artist: Mapped[str] = mapped_column(String(255))
     album: Mapped[str | None] = mapped_column(String(255), nullable=True)
     spotify_url: Mapped[str | None] = mapped_column(String(500), nullable=True)
+
+    duration_ms: Mapped[int | None] = mapped_column(nullable=True)
+    popularity: Mapped[int | None] = mapped_column(nullable=True)
+    explicit: Mapped[bool | None] = mapped_column(nullable=True)
+
+    preview_url: Mapped[str | None] = mapped_column(
+        String(500),
+        nullable=True,
+    )
+
+    image_url: Mapped[str | None] = mapped_column(
+        String(500),
+        nullable=True,
+    )
+
+    release_date: Mapped[str | None] = mapped_column(
+        String(50),
+        nullable=True,
+    )
