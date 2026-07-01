@@ -1,11 +1,11 @@
 from fastapi import APIRouter
-from sqlalchemy import select
 
 from app.db.session import SessionLocal
-from app.models.playlist import Playlist
-from app.models.playlist_track import PlaylistTrack
-from app.models.track import Track
-
+from app.services.playlist_service import (
+    get_playlist,
+    list_playlist_tracks,
+    list_playlists,
+)
 router = APIRouter()
 
 
@@ -21,7 +21,7 @@ def health():
 @router.get("/playlists")
 def get_playlists():
     with SessionLocal() as session:
-        playlists = session.scalars(select(Playlist)).all()
+        playlists = list_playlists(session)
 
         return [
             {
@@ -34,9 +34,9 @@ def get_playlists():
         ]
 
 @router.get("/playlists/{playlist_id}")
-def get_playlist(playlist_id: int):
+def get_playlist_by_id(playlist_id: int):
     with SessionLocal() as session:
-        playlist = session.get(Playlist, playlist_id)
+        playlist = get_playlist(session, playlist_id)
 
         if playlist is None:
             return {"error": "Playlist not found"}
@@ -50,14 +50,9 @@ def get_playlist(playlist_id: int):
         }
 
 @router.get("/playlists/{playlist_id}/tracks")
-def get_playlist_tracks(playlist_id: int):
+def get_tracks_for_playlist(playlist_id: int):
     with SessionLocal() as session:
-        rows = session.execute(
-            select(Track)
-            .join(PlaylistTrack, PlaylistTrack.track_id == Track.id)
-            .where(PlaylistTrack.playlist_id == playlist_id)
-            .order_by(PlaylistTrack.position)
-        ).scalars().all()
+        tracks = list_playlist_tracks(session, playlist_id)
 
         return [
             {
@@ -70,5 +65,5 @@ def get_playlist_tracks(playlist_id: int):
                 "popularity": track.popularity,
                 "image_url": track.image_url,
             }
-            for track in rows
+            for track in tracks
         ]
