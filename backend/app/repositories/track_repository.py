@@ -24,14 +24,18 @@ def get_track_by_id(session, track_id: int) -> Track | None:
     return session.get(Track, track_id)    
 
 def search_tracks(session, query: str) -> list[Track]:
-    search = f"%{query}%"
+    search = f"{query}%"
+    word_search = f"% {query}%"
 
     return session.scalars(
         select(Track).where(
             or_(
                 Track.title.ilike(search),
+                Track.title.ilike(word_search),
                 Track.artist.ilike(search),
+                Track.artist.ilike(word_search),
                 Track.album.ilike(search),
+                Track.album.ilike(word_search),
             )
         )
     ).all()

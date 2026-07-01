@@ -38,3 +38,22 @@ class Track(Base):
         String(50),
         nullable=True,
     )
+
+    bpm: Mapped[float | None] = mapped_column(nullable=True)
+    musical_key: Mapped[int | None] = mapped_column(nullable=True)
+    mode: Mapped[int | None] = mapped_column(nullable=True)
+
+    energy: Mapped[float | None] = mapped_column(nullable=True)
+    danceability: Mapped[float | None] = mapped_column(nullable=True)
+    valence: Mapped[float | None] = mapped_column(nullable=True)
+    loudness: Mapped[float | None] = mapped_column(nullable=True)
+
+    acousticness: Mapped[float | None] = mapped_column(nullable=True)
+    instrumentalness: Mapped[float | None] = mapped_column(nullable=True)
+    speechiness: Mapped[float | None] = mapped_column(nullable=True)
+    liveness: Mapped[float | None] = mapped_column(nullable=True)
+
+    camelot_key: Mapped[str | None] = mapped_column(
+        String(10),
+        nullable=True,
+    )
