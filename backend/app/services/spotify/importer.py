@@ -148,3 +148,13 @@ def import_all_playlists() -> int:
 
     print(f"Gesamt Tracks verarbeitet: {total_processed}")
     return total_processed
+
+def import_first_playlist_only() -> int:
+    sp = get_spotify_client()
+    playlists = get_current_user_playlists(sp)
+
+    if not playlists:
+        print("Keine Playlists gefunden.")
+        return 0
+
+    return import_playlist(playlists[0], sp)    
