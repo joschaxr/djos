@@ -62,3 +62,7 @@ class Track(Base):
         back_populates="track",
         uselist=False,
     )
+
+    audio_files: Mapped[list["AudioFile"]] = relationship(
+        back_populates="track",
+    )
