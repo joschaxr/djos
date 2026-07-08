@@ -1,6 +1,9 @@
 from mutagen import File
 
-from app.audio.cleaner import clean_text
+from app.audio.cleaner import (
+    clean_text,
+    split_artist_title,
+)
 from app.audio.index import AudioFile
 
 
@@ -63,3 +66,8 @@ def _clean_metadata(audio_file: AudioFile) -> None:
     audio_file.artist = clean_text(audio_file.artist)
     audio_file.title = clean_text(audio_file.title)
     audio_file.album = clean_text(audio_file.album)
+
+    audio_file.artist, audio_file.title = split_artist_title(
+        audio_file.artist,
+        audio_file.title,
+    )

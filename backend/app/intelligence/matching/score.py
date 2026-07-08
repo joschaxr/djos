@@ -1,6 +1,6 @@
 from difflib import SequenceMatcher
 
-from app.intelligence.matching.normalizer import normalize
+from app.intelligence.matching.normalize import normalize
 
 
 def text_score(left: str | None, right: str | None) -> float:

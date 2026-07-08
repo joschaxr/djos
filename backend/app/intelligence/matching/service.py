@@ -1,11 +1,30 @@
 from app.intelligence.matching.matcher import calculate_match_score
 
 
+MIN_AUDIO_DURATION_MS = 60_000
+
+IGNORED_PATH_PARTS = [
+    "rekordbox\\sampler",
+    "pioneerdj\\demo tracks",
+]
+
+
 def find_best_match(track, audio_files):
     best_audio_file = None
     best_score = 0.0
 
     for audio_file in audio_files:
+        path = str(audio_file.path).lower()
+
+        if any(part in path for part in IGNORED_PATH_PARTS):
+            continue
+
+        if not audio_file.title:
+            continue
+
+        if audio_file.duration_ms and audio_file.duration_ms < MIN_AUDIO_DURATION_MS:
+            continue
+
         score = calculate_match_score(
             spotify_artist=track.artist,
             spotify_title=track.title,
