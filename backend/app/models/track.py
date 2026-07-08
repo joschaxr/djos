@@ -66,3 +66,15 @@ class Track(Base):
     audio_files: Mapped[list["AudioFile"]] = relationship(
         back_populates="track",
     )
+
+    beats: Mapped[list["TrackBeat"]] = relationship(
+        back_populates="track",
+    )
+
+    structures: Mapped[list["TrackStructure"]] = relationship(
+        back_populates="track",
+    )
+
+    cues: Mapped[list["TrackCue"]] = relationship(
+        back_populates="track",
+    )
