@@ -1,13 +1,20 @@
+from dataclasses import asdict
+
 from fastapi import APIRouter
 
 from app.db.session import SessionLocal
 
+from app.intelligence.analysis.audio.analyzer import analyze_audio_file
+from app.intelligence.analysis.audio.structure.change_points import (
+    detect_change_points,
+)
+
+from app.repositories.audio_file_repository import get_audio_file_by_track_id
 from app.repositories.track_beat_repository import get_beats_for_track
 
 from app.schemas.audio_file import AudioFileResponse
 from app.schemas.playlist import PlaylistResponse
 from app.schemas.track import TrackResponse
-from app.schemas.track_analysis import TrackAnalysisResponse
 from app.schemas.track_beat import TrackBeatResponse
 
 from app.services.audio_file_service import (
@@ -88,13 +95,68 @@ def search_tracks(q: str):
         return search_tracks_by_query(session, q)
 
 
-@router.get(
-    "/tracks/{track_id}/analysis",
-    response_model=TrackAnalysisResponse | None,
-)
+@router.get("/tracks/{track_id}/analysis")
 def get_track_analysis_by_id(track_id: int):
     with SessionLocal() as session:
-        return get_analysis_for_track(session, track_id)
+        track = get_track(session, track_id)
+
+        if track is None:
+            return {"error": "Track not found"}
+
+        stored_analysis = get_analysis_for_track(session, track_id)
+
+        audio_file = get_audio_file_by_track_id(
+            session=session,
+            track_id=track_id,
+        )
+
+        if audio_file is None:
+            return {
+                "track": track,
+                "analysis": stored_analysis,
+                "audio_file": None,
+                "beats": get_beats_for_track(session, track_id),
+                "bars": [],
+                "phrases": [],
+                "change_points": [],
+                "error": "No matched local audio file found",
+            }
+
+        result = analyze_audio_file(audio_file.path)
+
+        change_points = detect_change_points(
+            result.features.smoothed_energy_curve,
+            result.features.smoothed_spectral_flux,
+        )
+
+        return {
+            "track": track,
+            "analysis": {
+                "bpm": result.bpm,
+                "musical_key": result.musical_key,
+                "mode": result.mode,
+                "camelot_key": result.camelot_key,
+            },
+            "audio_file": {
+                "id": audio_file.id,
+                "path": audio_file.path,
+                "filename": audio_file.filename,
+                "match_score": audio_file.match_score,
+            },
+            "beats": [
+                {
+                    "beat_index": index,
+                    "time_seconds": time_seconds,
+                }
+                for index, time_seconds in enumerate(result.beat_positions)
+            ],
+            "bars": [asdict(bar) for bar in result.bars],
+            "phrases": [asdict(phrase) for phrase in result.phrases],
+            "change_points": [
+                asdict(change_point)
+                for change_point in change_points
+            ],
+        }
 
 
 @router.get(

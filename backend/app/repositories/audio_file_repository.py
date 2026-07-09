@@ -1,3 +1,5 @@
+from pathlib import Path
+
 from sqlalchemy.orm import Session
 
 from app.models.audio_file import AudioFile
@@ -26,6 +28,18 @@ def get_audio_file_by_path(
     return (
         session.query(AudioFile)
         .filter(AudioFile.path == path)
+        .first()
+    )
+
+
+def get_audio_file_by_track_id(
+    session: Session,
+    track_id: int,
+) -> AudioFile | None:
+    return (
+        session.query(AudioFile)
+        .filter(AudioFile.track_id == track_id)
+        .order_by(AudioFile.match_score.desc().nullslast())
         .first()
     )
 
@@ -64,3 +78,36 @@ def save_audio_file(
     session.add(audio_file)
 
     return audio_file
+
+
+def create_audio_file_from_path(
+    session: Session,
+    file_path: Path,
+) -> AudioFile:
+    audio_file = AudioFile(
+        path=str(file_path),
+        filename=file_path.stem,
+        extension=file_path.suffix.lower(),
+    )
+
+    session.add(audio_file)
+
+    return audio_file
+
+
+def get_or_create_audio_file_from_path(
+    session: Session,
+    file_path: Path,
+) -> AudioFile:
+    existing = get_audio_file_by_path(
+        session,
+        str(file_path),
+    )
+
+    if existing is not None:
+        return existing
+
+    return create_audio_file_from_path(
+        session,
+        file_path,
+    )

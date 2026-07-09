@@ -3,6 +3,9 @@ from dataclasses import dataclass, field
 
 @dataclass
 class AudioFeatures:
+    sample_rate: int | None = None
+    hop_length: int = 512
+
     energy_curve: list[float] = field(default_factory=list)
     smoothed_energy_curve: list[float] = field(default_factory=list)
 

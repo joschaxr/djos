@@ -16,7 +16,7 @@ points = detect_change_points(
 )
 
 print(f"Change Points: {len(points)}")
-
 print()
 
-print(points[:20])
+for point in points[:20]:
+    print(point)

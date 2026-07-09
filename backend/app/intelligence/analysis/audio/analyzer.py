@@ -1,5 +1,7 @@
 from pathlib import Path
 
+import librosa
+
 from app.intelligence.analysis.audio.features import AudioFeatures
 
 from app.intelligence.analysis.audio.harmonic.bpm import analyze_bpm
@@ -22,8 +24,27 @@ from app.intelligence.analysis.audio.spectral.flux import (
 from app.intelligence.analysis.audio.result import AudioAnalysisResult
 
 
+HOP_LENGTH = 512
+
+
 def analyze_audio_file(audio_path: str | Path) -> AudioAnalysisResult:
     result = AudioAnalysisResult()
+
+    # ----------------------------------
+    # Audio metadata
+    # ----------------------------------
+
+    _, sample_rate = librosa.load(
+        audio_path,
+        sr=None,
+        mono=True,
+        duration=0.01,
+    )
+
+    result.features = AudioFeatures(
+        sample_rate=sample_rate,
+        hop_length=HOP_LENGTH,
+    )
 
     # ----------------------------------
     # Tempo
@@ -58,8 +79,6 @@ def analyze_audio_file(audio_path: str | Path) -> AudioAnalysisResult:
     # ----------------------------------
     # Audio Features
     # ----------------------------------
-
-    result.features = AudioFeatures()
 
     result.features.energy_curve = (
         analyze_energy_curve(audio_path)

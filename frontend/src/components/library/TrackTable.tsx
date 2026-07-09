@@ -26,6 +26,7 @@ export default function TrackTable({ searchQuery, onSelectTrack }: Props) {
     <table className="w-full border-collapse text-sm">
       <thead className="sticky top-0 bg-slate-900">
         <tr className="border-b border-slate-800 text-left text-xs uppercase tracking-wider text-slate-400">
+          <th className="px-4 py-3">ID</th>
           <th className="px-4 py-3">Artist</th>
           <th className="px-4 py-3">Title</th>
           <th className="px-4 py-3 text-center">BPM</th>
@@ -40,6 +41,7 @@ export default function TrackTable({ searchQuery, onSelectTrack }: Props) {
             onClick={() => onSelectTrack(track)}
             className="cursor-pointer border-b border-slate-800 text-slate-200 hover:bg-blue-500/10"
           >
+            <td className="px-4 py-3 text-slate-500">{track.id}</td>
             <td className="px-4 py-3">{track.artist}</td>
             <td className="px-4 py-3">{track.title}</td>
             <td className="px-4 py-3 text-center">{track.bpm ?? "-"}</td>
