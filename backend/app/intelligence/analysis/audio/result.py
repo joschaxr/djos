@@ -1,5 +1,7 @@
 from dataclasses import dataclass, field
 
+from app.intelligence.analysis.audio.features import AudioFeatures
+
 
 @dataclass
 class AudioBar:
@@ -45,6 +47,9 @@ class AudioAnalysisResult:
     beat_positions: list[float] = field(default_factory=list)
     bars: list[AudioBar] = field(default_factory=list)
     phrases: list[AudioPhrase] = field(default_factory=list)
+
+    # Audio feature layer
+    features: AudioFeatures = field(default_factory=AudioFeatures)
 
     # Structure
     sections: list[AudioSection] = field(default_factory=list)
