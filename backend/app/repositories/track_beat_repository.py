@@ -26,3 +26,14 @@ def save_track_beats(
                 time_seconds=time_seconds,
             )
         )
+
+def get_beats_for_track(
+    session: Session,
+    track_id: int,
+) -> list[TrackBeat]:
+    return (
+        session.query(TrackBeat)
+        .filter(TrackBeat.track_id == track_id)
+        .order_by(TrackBeat.beat_index)
+        .all()
+    )        

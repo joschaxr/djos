@@ -2,6 +2,29 @@ from dataclasses import dataclass, field
 
 
 @dataclass
+class AudioBar:
+    bar_index: int
+    start_time: float
+    end_time: float | None = None
+
+
+@dataclass
+class AudioPhrase:
+    phrase_index: int
+    start_time: float
+    end_time: float | None = None
+    bars_count: int | None = None
+
+
+@dataclass
+class AudioSection:
+    section_type: str
+    start_time: float
+    end_time: float | None = None
+    confidence: float | None = None
+
+
+@dataclass
 class AudioAnalysisResult:
     # Tempo
     bpm: float | None = None
@@ -20,8 +43,11 @@ class AudioAnalysisResult:
 
     # Rhythm
     beat_positions: list[float] = field(default_factory=list)
+    bars: list[AudioBar] = field(default_factory=list)
+    phrases: list[AudioPhrase] = field(default_factory=list)
 
     # Structure
+    sections: list[AudioSection] = field(default_factory=list)
     intro_start: float | None = None
     intro_end: float | None = None
     outro_start: float | None = None

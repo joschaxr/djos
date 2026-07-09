@@ -1,19 +1,66 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 
 
 @dataclass
-class AnalysisResult:
+class AudioBar:
+    bar_index: int
+    start_time: float
+    end_time: float | None = None
+
+
+@dataclass
+class AudioPhrase:
+    phrase_index: int
+    start_time: float
+    end_time: float | None = None
+    bars_count: int | None = None
+
+
+@dataclass
+class AudioSection:
+    section_type: str
+    start_time: float
+    end_time: float | None = None
+    confidence: float | None = None
+
+
+@dataclass
+class AudioAnalysisResult:
+    # Tempo
     bpm: float | None = None
+    bpm_confidence: float | None = None
+
+    # Harmonic
     musical_key: int | None = None
     mode: int | None = None
     camelot_key: str | None = None
+    key_confidence: float | None = None
 
+    # Loudness
+    loudness: float | None = None
+    peak_db: float | None = None
+    rms_db: float | None = None
+
+    # Rhythm
+    beat_positions: list[float] = field(default_factory=list)
+    bars: list[AudioBar] = field(default_factory=list)
+    phrases: list[AudioPhrase] = field(default_factory=list)
+
+    # Energy
+    energy_curve: list[float] = field(default_factory=list)
+    smoothed_energy_curve: list[float] = field(default_factory=list)
+
+    # Structure
+    sections: list[AudioSection] = field(default_factory=list)
+    intro_start: float | None = None
+    intro_end: float | None = None
+    outro_start: float | None = None
+    drop_positions: list[float] = field(default_factory=list)
+
+    # DJ
+    suggested_mix_in: float | None = None
+    suggested_mix_out: float | None = None
+
+    # High-level features
     energy: float | None = None
     danceability: float | None = None
-    valence: float | None = None
-    loudness: float | None = None
-
-    acousticness: float | None = None
-    instrumentalness: float | None = None
-    speechiness: float | None = None
-    liveness: float | None = None

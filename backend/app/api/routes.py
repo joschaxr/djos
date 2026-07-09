@@ -2,10 +2,13 @@ from fastapi import APIRouter
 
 from app.db.session import SessionLocal
 
+from app.repositories.track_beat_repository import get_beats_for_track
+
 from app.schemas.audio_file import AudioFileResponse
 from app.schemas.playlist import PlaylistResponse
 from app.schemas.track import TrackResponse
 from app.schemas.track_analysis import TrackAnalysisResponse
+from app.schemas.track_beat import TrackBeatResponse
 
 from app.services.audio_file_service import (
     get_audio_file_by_id,
@@ -85,6 +88,24 @@ def search_tracks(q: str):
         return search_tracks_by_query(session, q)
 
 
+@router.get(
+    "/tracks/{track_id}/analysis",
+    response_model=TrackAnalysisResponse | None,
+)
+def get_track_analysis_by_id(track_id: int):
+    with SessionLocal() as session:
+        return get_analysis_for_track(session, track_id)
+
+
+@router.get(
+    "/tracks/{track_id}/beats",
+    response_model=list[TrackBeatResponse],
+)
+def get_track_beats(track_id: int):
+    with SessionLocal() as session:
+        return get_beats_for_track(session, track_id)
+
+
 @router.get("/tracks/{track_id}", response_model=TrackResponse)
 def get_track_by_id(track_id: int):
     with SessionLocal() as session:
@@ -94,15 +115,6 @@ def get_track_by_id(track_id: int):
             return {"error": "Track not found"}
 
         return track
-
-
-@router.get(
-    "/tracks/{track_id}/analysis",
-    response_model=TrackAnalysisResponse | None,
-)
-def get_track_analysis_by_id(track_id: int):
-    with SessionLocal() as session:
-        return get_analysis_for_track(session, track_id)
 
 
 # ------------------------
