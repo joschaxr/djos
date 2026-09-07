@@ -1,0 +1,218 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="theme-color" content="#050915" />
+  <meta name="description" content="DJOS — a local-first music library and DJ intelligence system for understanding, mapping and mixing your collection." />
+  <title>DJOS — DJ Operating System</title>
+  <link rel="icon" href="./favicon.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="./styles.css" />
+</head>
+<body>
+  <div class="noise" aria-hidden="true"></div>
+  <div class="site-shell">
+    <header class="topbar">
+      <a class="brand" href="#top" aria-label="DJOS home">
+        <span class="brand-mark">DJOS</span>
+        <span class="brand-sub">DJ OPERATING SYSTEM</span>
+      </a>
+      <nav class="nav" aria-label="Primary navigation">
+        <a href="#product">Product</a>
+        <a href="#intelligence">Intelligence</a>
+        <a href="#roadmap">Roadmap</a>
+      </nav>
+      <div class="status-chip"><span class="status-dot"></span>In development</div>
+    </header>
+
+    <main id="top">
+      <section class="hero section-grid">
+        <div class="hero-copy">
+          <div class="eyebrow">MUSIC INTELLIGENCE, BUILT FOR DJS</div>
+          <h1>Your music.<br><span>Mapped, understood,</span><br>ready to mix.</h1>
+          <p class="hero-lead">DJOS is a local-first DJ library and intelligence system that connects your own audio files with catalog metadata, analyzes how tracks behave, and turns a large music collection into something you can actually navigate.</p>
+          <div class="hero-actions">
+            <a class="button button-primary" href="#product">Explore DJOS</a>
+            <a class="button button-ghost" href="#roadmap">View roadmap</a>
+          </div>
+          <div class="hero-meta">
+            <span>LOCAL-FIRST</span><span>CATALOG-AWARE</span><span>TRANSITION-FOCUSED</span>
+          </div>
+        </div>
+
+        <div class="hero-visual" aria-label="DJOS music intelligence visualization">
+          <div class="visual-header">
+            <div>
+              <span class="micro-label">LIVE CONCEPT</span>
+              <strong>MUSIC MAP</strong>
+            </div>
+            <span class="mini-chip">LIBRARY INTELLIGENCE</span>
+          </div>
+          <div class="map-stage">
+            <div class="map-ring ring-a"></div>
+            <div class="map-ring ring-b"></div>
+            <div class="map-ring ring-c"></div>
+            <div class="cluster cluster-a">
+              <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="node n5"></span>
+            </div>
+            <div class="cluster cluster-b">
+              <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span>
+            </div>
+            <div class="cluster cluster-c">
+              <span class="node n1"></span><span class="node n2"></span><span class="node n3"></span><span class="node n4"></span><span class="node n5"></span>
+            </div>
+            <div class="focus-node"><span></span><b>NOW</b></div>
+            <div class="map-label label-a">PEAK</div>
+            <div class="map-label label-b">WARM-UP</div>
+            <div class="map-label label-c">DARK / FAST</div>
+            <div class="map-axis axis-x">similarity →</div>
+            <div class="map-axis axis-y">energy ↑</div>
+          </div>
+          <div class="visual-footer">
+            <div><span>143.5</span><small>BPM</small></div>
+            <div><span>2A</span><small>CAMELOT</small></div>
+            <div><span>82%</span><small>ENERGY</small></div>
+            <div><span>0.91</span><small>MATCH</small></div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section" id="product">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">THE SYSTEM</div>
+            <h2>One library. Multiple intelligence layers.</h2>
+          </div>
+          <p>DJOS combines identity, musical features and full local audio analysis instead of forcing every track into the same data model.</p>
+        </div>
+
+        <div class="feature-grid">
+          <article class="feature-card featured">
+            <div class="card-index">01</div>
+            <div class="icon-box">≋</div>
+            <h3>Library Intelligence</h3>
+            <p>Unify local files, streaming catalog identity and playlists into one canonical track library with source-aware confidence.</p>
+            <div class="card-tags"><span>LOCAL AUDIO</span><span>SPOTIFY</span><span>IDENTITY</span></div>
+          </article>
+          <article class="feature-card">
+            <div class="card-index">02</div>
+            <div class="icon-box">⌁</div>
+            <h3>Music Map</h3>
+            <p>Navigate tracks by musical similarity, energy, tempo, harmony and style — not just folders or genres.</p>
+            <div class="card-tags"><span>MAP</span><span>CLUSTERS</span><span>DISCOVERY</span></div>
+          </article>
+          <article class="feature-card">
+            <div class="card-index">03</div>
+            <div class="icon-box">↝</div>
+            <h3>Mix Intelligence</h3>
+            <p>Rank practical next-track candidates using tempo, harmony, energy, structure and real transition windows.</p>
+            <div class="card-tags"><span>TRANSITIONS</span><span>PHRASES</span><span>ENERGY</span></div>
+          </article>
+          <article class="feature-card">
+            <div class="card-index">04</div>
+            <div class="icon-box">◇</div>
+            <h3>Smart Collections</h3>
+            <p>Turn analysis into working crates: filter, cluster, select map regions and build dynamic collections for a specific moment in a set.</p>
+            <div class="card-tags"><span>CRATES</span><span>FILTERS</span><span>PLAYLISTS</span></div>
+          </article>
+        </div>
+      </section>
+
+      <section class="section intelligence-section" id="intelligence">
+        <div class="section-heading compact">
+          <div>
+            <div class="eyebrow">CATALOG INTELLIGENCE</div>
+            <h2>Evidence, not invented certainty.</h2>
+          </div>
+          <p>Every value keeps its source and confidence. Full local analysis remains authoritative while external providers can enrich catalog-only tracks.</p>
+        </div>
+
+        <div class="intelligence-layout">
+          <div class="ladder-panel">
+            <div class="ladder-row">
+              <div class="ladder-num">01</div>
+              <div><strong>Catalog identity</strong><span>Spotify · ISRC · MusicBrainz</span></div>
+              <div class="ladder-status">IDENTITY</div>
+            </div>
+            <div class="ladder-row">
+              <div class="ladder-num">02</div>
+              <div><strong>Musical features</strong><span>BPM · key · danceability · genre</span></div>
+              <div class="ladder-status">FEATURES</div>
+            </div>
+            <div class="ladder-row active">
+              <div class="ladder-num">03</div>
+              <div><strong>Local audio analysis</strong><span>energy · beats · phrases · structure</span></div>
+              <div class="ladder-status">FULL AUDIO</div>
+            </div>
+            <div class="ladder-row">
+              <div class="ladder-num">04</div>
+              <div><strong>Transition intelligence</strong><span>entry · exit · trajectory · compatibility</span></div>
+              <div class="ladder-status">MIX</div>
+            </div>
+          </div>
+
+          <div class="fusion-panel">
+            <div class="fusion-title">FEATURE FUSION</div>
+            <div class="source-row"><span>SPOTIFY</span><b>Identity + playlists</b><i>↘</i></div>
+            <div class="source-row"><span>GETSONGBPM</span><b>BPM + key + musical features</b><i>→</i></div>
+            <div class="source-row"><span>MUSICBRAINZ</span><b>Recording identity + tags</b><i>→</i></div>
+            <div class="source-row strong"><span>LOCAL AUDIO</span><b>Full DSP + temporal structure</b><i>↗</i></div>
+            <div class="fusion-core">
+              <small>CANONICAL</small>
+              <strong>DJOS TRACK</strong>
+              <span>provenance · confidence · evidence</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section class="section roadmap-section" id="roadmap">
+        <div class="section-heading">
+          <div>
+            <div class="eyebrow">ROADMAP</div>
+            <h2>Built in layers, toward one DJ workspace.</h2>
+          </div>
+          <p>The current focus is catalog enrichment. The next major interface is the Music Map, followed by smart organization and deeper set planning.</p>
+        </div>
+
+        <div class="roadmap-grid">
+          <article class="roadmap-card current">
+            <div class="roadmap-top"><span>NOW</span><b>Catalog Intelligence</b></div>
+            <p>Enrich streaming-only tracks with trustworthy musical features and link local analysis back to canonical catalog tracks.</p>
+          </article>
+          <article class="roadmap-card">
+            <div class="roadmap-top"><span>NEXT</span><b>Music Map</b></div>
+            <p>A 2D musical space for navigating similarity, energy and clusters across the entire library.</p>
+          </article>
+          <article class="roadmap-card">
+            <div class="roadmap-top"><span>03</span><b>Smart Collections</b></div>
+            <p>Dynamic crates, map selections, saved filters and auto-clustered working sets.</p>
+          </article>
+          <article class="roadmap-card">
+            <div class="roadmap-top"><span>04</span><b>DJ Workspace</b></div>
+            <p>Bring library, playlists, map and mix intelligence into one coherent performance-oriented workflow.</p>
+          </article>
+        </div>
+      </section>
+
+      <section class="closing-section">
+        <div class="closing-glow"></div>
+        <div class="eyebrow">DJOS / DJ OPERATING SYSTEM</div>
+        <h2>Less searching.<br><span>More understanding.</span></h2>
+        <p>DJOS is currently in active development as a local-first music intelligence system.</p>
+        <a class="button button-primary" href="#top">Back to top</a>
+      </section>
+    </main>
+
+    <footer class="footer">
+      <div>
+        <strong>DJOS</strong>
+        <span>DJ OPERATING SYSTEM</span>
+      </div>
+      <p>Music metadata and BPM/key information provided in part by <a href="https://getsongbpm.com/" target="_blank" rel="noopener noreferrer">GetSongBPM</a>. Recording identity metadata may be enriched via <a href="https://musicbrainz.org/" target="_blank" rel="noopener noreferrer">MusicBrainz</a>.</p>
+      <small>© 2026 DJOS. Project in development.</small>
+    </footer>
+  </div>
+  <script src="./script.js"></script>
+</body>
+</html>
